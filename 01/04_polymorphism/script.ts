@@ -29,6 +29,8 @@ const names = [
 console.log(filter(names, _ => _.firstName.startsWith('k')))
 // [ { firstName: 'kento' }, { firstName: 'keiko' } ]
 
+//-----------------------------------------------------------------
+
 // 型エイリアスにTのスコープを設定
 
 type Sample<T> = {
@@ -41,3 +43,28 @@ const sample: Sample<string> = (str) => {
 
 console.log(sample('Hello World'))
 // Hello World
+
+//-----------------------------------------------------------------
+
+function map<T, U>(array: T[], f: (item: T) => U): U[] {
+  let result = []
+
+  for (let i = 0; i < array.length; i++) {
+    result[i] = f(array[i])
+  }
+  
+  return result
+}
+
+console.log(map([1, 2, 3], _ => _ * 2))
+// [ 2, 4, 6 ]
+
+//-----------------------------------------------------------------
+// 明示的にアノテート
+
+function map2<T> (array: T[]): T[] {
+  return array 
+}
+
+console.log(map2<string>(["hoge", "foo"]))
+// [ 'hoge', 'foo' ]
