@@ -77,6 +77,91 @@ str = String(NaN) //=> NaN
 
 ---
 
+## 制御構文
+
+### if-else
+
+```typescript
+const arr = [...Array(15).keys()].map(i => {
+  if(i % 15 === 0) {
+    console.log("FizzBuzz")
+  } else if (i % 3 === 0) {
+    console.log("Fizz")
+  } else if (i % 5 === 0) {
+    console.log("Buzz")
+  }
+})
+```
+
+### 三項演算子
+
+```typescript
+const i = 10
+
+console.log(i % 2 === 0 ? "偶数" : "奇数")
+```
+
+### switch
+
+```typescript
+[...Array(100).keys()].map(i => {
+  i++
+  switch(true) {
+    case (i % 15 === 0):
+      console.log(i, "FizzBuzz")
+      break
+    case (i % 3 === 0):
+      console.log(i, "Fizz")
+      break
+    case (i % 5 === 0):
+      console.log(i, "Buzz")
+      break
+    default:
+      break
+  }
+})
+```
+
+---
+
+## 配列
+
+自動的に型がつく。
+
+```typescript
+const arr = [1,2,3]
+arr.push("4")
+//=> TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+```
+
+### 型アノテーション。
+
+```typescript
+const arr = [1,2,3]
+arr.push("4")
+//=> TS2345: Argument of type 'string' is not assignable to parameter of type 'number'.
+```
+
+### readonly
+
+```typescript
+const arr: readonly number[] = [1, 2, 3]
+arr.push(4)
+//=> TS2339: Property 'push' does not exist on type 'readonly number[]'.
+```
+
+### for...of
+
+```typescript
+let total = 0
+
+for (let i of [...Array(11).keys()]) {
+  total += i
+  //=> 55
+}
+```
+
+
 
 
 
