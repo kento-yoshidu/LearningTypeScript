@@ -161,8 +161,34 @@ for (let i of [...Array(11).keys()]) {
 }
 ```
 
+### タプル
 
+```ts
+const arr: [string, number] = ["kento", 34]
+```
 
+## enum
+
+列挙型。ユニオン型でいいのでは？
+
+```ts
+enum Framework {
+  React,
+  Vue,
+  Svelte
+}
+
+const myFramework: Framework  = Framework.React
+const myFramework2: Framework  = Framework.Vue
+const myFramework3: Framework  = Framework.Svelte
+console.log(myFramework) //=> 0
+console.log(myFramework2) //=> 1
+console.log(myFramework3) //=> 2
+```
+
+[さようなら、TypeScript enum | Kabuku Developers Blog](https://www.kabuku.co.jp/developers/good-bye-typescript-enum)
+
+[TypeScriptのenumを使わないほうがいい理由を、Tree-shakingの観点で紹介します - LINE ENGINEERING](https://engineering.linecorp.com/ja/blog/typescript-enum-tree-shaking/)
 
 
 
