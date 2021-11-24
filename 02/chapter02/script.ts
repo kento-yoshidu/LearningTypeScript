@@ -97,4 +97,27 @@ for (let i of [...Array(11).keys()]) {
   //=> 55
 }
 
+---
+
+## タプル
+
+const arr: [string, number] = ["kento", 34]
+
+---
+
+## enum
+
 */
+
+enum Framework {
+  React,
+  Vue,
+  Svelte
+}
+
+const myFramework: Framework  = Framework.React
+const myFramework2: Framework  = Framework.Vue
+const myFramework3: Framework  = Framework.Svelte
+console.log(myFramework) //=> 0
+console.log(myFramework2) //=> 1
+console.log(myFramework3) //=> 2
