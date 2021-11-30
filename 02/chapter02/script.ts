@@ -17,13 +17,13 @@ const n = null
 const u = undefined
 const nu = NaN
 
----
+//
 
 const num: number = 1
 const str: string = "string"
 const bool: boolean = true
 
----
+//
 
 let num = 1
 
@@ -46,7 +46,7 @@ str = String(NaN) //=> NaN
 
 console.log(str) //=> 1
 
----
+//
 
 [...Array(30).keys()].map(i => {
   if(i % 15 === 0) {
@@ -80,7 +80,7 @@ console.log(i % 2 === 0 ? "偶数" : "奇数")
   }
 })
 
----
+//
 
 const arr = [1,2,3]
 arr.push("4")
@@ -97,17 +97,12 @@ for (let i of [...Array(11).keys()]) {
   //=> 55
 }
 
----
-
-## タプル
+// ## タプル
 
 const arr: [string, number] = ["kento", 34]
 
----
+// ## enum
 
-## enum
-
-*/
 
 enum Framework {
   React,
@@ -121,3 +116,60 @@ const myFramework3: Framework  = Framework.Svelte
 console.log(myFramework) //=> 0
 console.log(myFramework2) //=> 1
 console.log(myFramework3) //=> 2
+
+// 型エイリアス
+
+type name = string
+type age = number
+
+let me: [name, age] = ['taro', 32]
+let you: [age, name] = [10, 'kenji']
+
+type name = string
+type mail = string
+type age = number
+
+type Person = [name, mail, age]
+
+const taro: Person = ["taro", "taro@taro", 89]
+const keiko: Person = ["keiko", "keiko@taro", 80]
+
+const data: Person[] = [taro, keiko]
+
+// ## 条件型
+
+type country = "Japan" | "Switzerland"
+
+const myCountory: country = "Japan"
+const yourCountory: country = "Switzerland"
+const hisCountory: country = "Spain"
+// error TS2322: Type '"Spain"' is not assignable to type 'country'.
+
+// ## ユーティリティ型
+
+type data = [string, number]
+type ReqData = Readonly<data>
+
+const x: ReqData = ["kento", 100]
+x[0] = "tsuyoshi"
+// error TS2540: Cannot assign to '0' because it is a read-only property.
+
+// ## シンボル
+
+const s1: unique symbol = Symbol("Hello")
+const s2: unique symbol = Symbol("Hello")
+
+console.log(s1 === s2)
+// error TS2367: This condition will always return 'false' since the types 'typeof s1' and 'typeof s2' have no overlap. 
+
+const s3: symbol = Symbol("Hello")
+const s4: symbol = Symbol("Hello")
+
+console.log(s3 === s4)
+//=> false
+*/
+
+type myType = [name: string, age: number, living?: boolean]
+
+const data: myType = ["kento", 34]
+const data2: myType = ["megumi", 20]
