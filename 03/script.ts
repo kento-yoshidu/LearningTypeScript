@@ -1,5 +1,5 @@
 /*
-## 変数宣言
+// ## 変数宣言
 
 const num = 1
 let str = "1"
@@ -21,7 +21,7 @@ obj.id = 2
 console.log(obj.id)
 //=> 2
 
-## 型アノテーション
+// ## 型アノテーション
 
 const num: number = 1
 const str: string = "string"
@@ -117,8 +117,7 @@ const myObj: Obj = {
   0: "Hello",
 }
 
-## オブジェクトの型について
-
+// ## オブジェクトの型について
 
 let obj: object
 
@@ -126,23 +125,26 @@ obj = {}
 obj = []
 obj = /0-9/
 
-// obj = 1
-//=> error TS2322: Type 'number' is not assignable to type 'object'.
-// obj = "1"
-//=> error TS2322: Type 'string' is not assignable to type 'object'.
-// obj = true
-//=> error TS2322: Type 'boolean' is not assignable to type 'object'.
-// obj = null
-//=> error TS2322: Type 'null' is not assignable to type 'object'.
-// obj = undefined
-//=> error TS2322: Type 'undefined' is not assignable to type 'object'.
+obj = 1
+=> error TS2322: Type 'number' is not assignable to type 'object'.
+
+obj = "1"
+=> error TS2322: Type 'string' is not assignable to type 'object'.
+
+obj = true
+=> error TS2322: Type 'boolean' is not assignable to type 'object'.
+
+obj = null
+=> error TS2322: Type 'null' is not assignable to type 'object'.
+
+obj = undefined
+=> error TS2322: Type 'undefined' is not assignable to type 'object'.
 
 let obj: object
 
 obj = new Number(1) //=> [Number: 1]
 obj = new String("Hello") //=> [String: 'Hello']
 obj = new Boolean(true) //=> [Boolean: true]
-
 
 let obj: Object
 
@@ -151,10 +153,11 @@ obj = "str"
 obj = true
 obj = {}
 
-// obj = null
-//=> error TS2322: Type 'null' is not assignable to type 'Object'.
-// obj = undefined
-//=> error TS2322: Type 'undefined' is not assignable to type 'Object'.
+obj = null
+=> error TS2322: Type 'null' is not assignable to type 'Object'.
+
+obj = undefined
+=> error TS2322: Type 'undefined' is not assignable to type 'Object'.
 
 let obj: {}
 
@@ -174,7 +177,7 @@ console.log(id) //=> 1
 console.log(myName) //=> Kento
 console.log(live) //=> true
 
-## 配列
+// ## 配列
 
 const arr: number[] = [1, 2, 3]
 const arr2: Array<number> = [4, 5, 6]
@@ -196,7 +199,6 @@ arr.push(4)
 // error TS2339: Property 'push' does not exist on type 'readonly number[]'.
 console.log(arr)
 
-
 const arr: number[] = [1, 2, 3]
 const arr2: number[] = arr
 
@@ -212,13 +214,11 @@ const arr2: readonly number[] = arr
 
 console.log(arr2)
 
-## タプル
-
+// ## タプル
 
 const arr: [number, string, boolean] = [1, "string", true]
 
-## 列挙型
-
+// ## 列挙型
 
 enum Position {
   Top,
@@ -265,7 +265,7 @@ enum Position2 {
   left //=> 13
 }
 
-## 文字列列挙型
+// ## 文字列列挙型
 
 enum Strings {
   One = "One",
@@ -282,14 +282,14 @@ enum Strings {
 const str: Strings = "One"
 // error TS2322: Type '"One"' is not assignable to type 'Strings'.
 
-## ユニオン型
+// ## ユニオン型
 
 let framework: "React" | "Vue" | "Svalte"
 
 framework = "JQuery"
 // error TS2322: Type '"JQuery"' is not assignable to type '"React" | "Vue" | "Svalte"'.
 
-// 配列のユニオン型
+// ## 配列のユニオン型
 
 const arr: (string | number)[] = ["one", "two", "three"]
 //=> [ 'one', 'two', 'three' ]
@@ -318,8 +318,6 @@ function StringOrNull () {
 console.log(StringOrNull().toUpperCase())
 // error TS2531: Object is possibly 'null'.
 
-*/
-
 // 文字列かnullを返す関数
 function StringOrNull () {
   if (Math.random() * 10 < 5) {
@@ -338,14 +336,148 @@ if (typeof result === "string") {
   console.log('nullでした')
 }
 
+// ## インターセクション型
 
+// オブジェクトの合成。&。
+
+type XY = {
+  x: number;
+  y: number;
+}
+
+type Z = {
+  z: number;
+}
+
+type Intersection = XY & Z
+
+const p: Intersection = {
+  x: 1,
+  y: 1,
+  z: 1
+}
+
+// 必須なものとそうではないものがごちゃ混ぜのtype
+// これでもいいが、肥大化すると必須か否かがわかりにくい
+
+type Person = {
+  id: number;
+  name: string;
+  hobby?: string
+}
+
+// 必須なパラメーターには`Required`
+type Req = Required<{
+  id: number;
+  name: string
+}>
+
+// 必須ではないなら`Partial`
+type Opt = Partial<{
+  hobby: string
+}>
+
+type Person = Req & Opt
+
+const person1: Person = {
+  id: 1,
+  name: "kento",
+  hobby: "Computer"
+}
+
+const person2: Person = {
+  id: 2,
+  name: "takashi"
+}
+
+// ## 型アサーション
+
+// 型推論の上書き
+
+// as構文
+
+const str: string | number = "Hello World"
+const strLength: number = (str as unknown as string).length
+
+// アングルブラケット構文
+
+const str: string | number = "Hello World"
+const strLength: number = (<string>str).length
+
+// ## const型アサーション
+
+// オブジェクトリテラルの末尾につけ、全てのプロパティを読み取り専用にする
+
+const obj = {
+  id: 1,
+  name: "kento",
+  other: {
+    hobby: "Computer"
+  }
+} as const
+
+obj.id = 10
+// error TS2540: Cannot assign to 'id' because it is a read-only property.
+
+const myObj: Readonly<{
+  id: number;
+  name: string
+  other: {
+    hobby: string
+  }
+}> = {
+  id: 1,
+  name: "kento",
+  other: {
+    hobby: "Computer"
+  }
+}
+
+// idやnameはReadonly
+myObj.id = 10
+// error TS2540: Cannot assign to 'id' because it is a read-only property.
+myObj.other.hobby = "tennis"
+
+// 1階層潜ると上書き可能
+console.log(myObj)
+//=> { id: 1, name: 'kento', other: { hobby: 'tennis' } }
+
+const myObj = {
+  id: 1,
+  name: "kento",
+  other: {
+    hobby: "Computer"
+  }
+} as const
+
+myObj.id = 10
+// error TS2540: Cannot assign to 'id' because it is a read-only property.
+
+myObj.other.hobby = "Tennis"
+// error TS2540: Cannot assign to 'hobby' because it is a read-only property.
+
+// 関数
+
+function hoge (params: string) {
+  if (params === "hoge") {
+    return "Hello World"
+  }
+  return 1
+}
+
+console.log(hoge("hog"))
+
+*/
+
+type Func = (num: number) => number
+
+const func: Func = (num) => {
+  return num * 10
+}
+
+// [](https://qiita.com/NeGI1009/items/a98c6a76b0c4f3bc18b3)
 
 /*
-## 型アサーション
-
-const str: string = 1
-// error TS2322: Type 'number' is not assignable to type 'string'.
-
 
 ## widening Literal Types
 
