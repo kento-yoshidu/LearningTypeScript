@@ -434,15 +434,44 @@ func({str1: "It is", str2: "my dog"})
 
 // 仮引数と実引数の名前が同じとき
 
-*/
-
-const func= ({ height, width}: { height: number, width: number}) => {
+const func= ({ height, width }: { height: number, width: number }) => {
   console.log(height * width)
 }
 
 const height = 21
 const width = 108
 
+// プロパティ名を省略できる
 func({ height, width })
 //=> 2268
 
+// もしくは
+
+type Options = {
+  height: number;
+  width: number;
+}
+
+const func = ({ height, width }: Options) => {
+  console.log(height * width)
+}
+*/
+
+// ## 型ガード関数
+
+// 戻り値はboolean
+
+const isStringOrNumber = (v: unknown): v is string | number => {
+  return typeof v === "string" || typeof v === "number"
+}
+
+console.log(isStringOrNumber(1))
+//=> true
+
+console.log(isStringOrNumber("1"))
+//=> true
+
+console.log(isStringOrNumber({}))
+//=> false
+
+// ## アサーション関数
