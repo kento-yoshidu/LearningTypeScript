@@ -1,4 +1,3 @@
-/*
 type Color = 'Black' | 'White'
 type FileAlt = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
 type Rank = 1 | 2 | 3| 4 | 5 | 6 | 7 | 8 
@@ -20,10 +19,6 @@ class Piece {
     this.position = new Position(file, rank)
   }
 }
-
-/////////////
-
-*/
 
 type Color = 'Black' | 'White'
 type FileAlt = 'A' | 'B' | 'C' | 'D' | 'E' | 'F' | 'G' | 'H'
