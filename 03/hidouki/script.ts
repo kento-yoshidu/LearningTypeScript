@@ -1,4 +1,3 @@
-/*
 type Callback<T> = (result: T) => void;
 
 function request1(callback: Callback<number>) {
@@ -122,7 +121,6 @@ async function main() {
 }
 
 main()
-*/
 
 function request1(): Promise<number> {
   return new Promise((resolve) => {
