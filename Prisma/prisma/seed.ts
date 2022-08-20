@@ -2,10 +2,14 @@ import { PrismaClient } from '@prisma/client'
 
 const prisma = new PrismaClient()
 
-const posts: any = []
+interface Post {
+  title: string
+}
 
-for(let i = 0; i < 100; i++) {
-    posts.push({ title: `title ${i + 1}`})
+const posts: Post[] = []
+
+for (let i = 0; i < 100; i++) {
+    posts.push({ title: `title ${i + 1}` })
 }
 
 async function main() {
@@ -19,19 +23,19 @@ async function main() {
     },
   })
 
-    const bob = await prisma.user.create({
-      data: {
-        name: 'Bob',
-        email: 'bob@example.com',
-        posts: {
-          create: {
-            title: 'Check out Prisma with Next.js',
-          }
+  const bob = await prisma.user.create({
+    data: {
+      name: 'Bob',
+      email: 'bob@example.com',
+      posts: {
+        create: {
+          title: 'Check out Prisma with Next.js',
         }
       }
-    })
+    }
+  })
 
-    console.log({alice, bob})
+  console.log({alice, bob})
 }
 
 main()
